@@ -1,56 +1,850 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>测试网站1号</title>
-    <style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>幸福工厂中文站</title>
+  <meta name="description" content="幸福工厂中文玩家静态资源站，优先整理 Bilibili 攻略精选、蓝图资源、存档分享、工具导航、社区入口与投稿方式。" />
+  <style>
+    :root {
+      --bg: #0c1015;
+      --bg-2: #121822;
+      --panel: rgba(23, 30, 40, 0.92);
+      --panel-2: rgba(18, 24, 34, 0.95);
+      --line: rgba(255, 255, 255, 0.08);
+      --text: #edf2f7;
+      --muted: #9aa7b8;
+      --accent: #f59e0b;
+      --accent-2: #fb923c;
+      --max: 1200px;
+      --shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
     body {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(245, 158, 11, 0.08), transparent 26%),
+        radial-gradient(circle at left bottom, rgba(251, 146, 60, 0.06), transparent 24%),
+        linear-gradient(180deg, #0b0f14 0%, #121822 100%);
+      line-height: 1.68;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
     img {
-        max-width: 100%;
-        height: auto;
-        display: block;
-        margin: 10px auto;
+      max-width: 100%;
+      display: block;
     }
 
-    /* 手机端 */
-    @media (max-width: 480px) {
-        img {
-            width: 100%;
-        }
+    .container {
+      width: min(100% - 28px, var(--max));
+      margin: 0 auto;
     }
 
-    /* 平板端 */
-    @media (min-width: 481px) and (max-width: 768px) {
-        img {
-            max-width: 80%;
-        }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(9, 12, 17, 0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
-    /* 电脑端 */
-    @media (min-width: 769px) {
-        img {
-            max-width: 60%;
-        }
+    .nav {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
     }
-</style>
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand strong {
+      font-size: 22px;
+      letter-spacing: 0.4px;
+    }
+
+    .brand span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--muted);
+      border: 1px solid transparent;
+      transition: 0.18s ease;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(245, 158, 11, 0.08);
+      border-color: rgba(245, 158, 11, 0.2);
+    }
+
+    .hero {
+      padding: 54px 0 22px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .hero-main,
+    .panel,
+    .feature-card,
+    .resource-card,
+    .update-card,
+    .contact-card,
+    .spotlight-card,
+    .quick-card {
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main {
+      position: relative;
+      overflow: hidden;
+      padding: 30px;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      right: -70px;
+      bottom: -70px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.16), transparent 64%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 11px;
+      border-radius: 999px;
+      font-size: 13px;
+      margin-bottom: 14px;
+      color: #fbbf24;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.18);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(34px, 5.6vw, 58px);
+      line-height: 1.08;
+    }
+
+    .hero-main p {
+      margin: 0 0 22px;
+      max-width: 38em;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      transition: 0.2s ease;
+      font-weight: 700;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color: #18120a;
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255,255,255,0.02);
+      border-color: rgba(255,255,255,0.08);
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .hero-side {
+      display: grid;
+      gap: 18px;
+    }
+
+    .panel,
+    .quick-card,
+    .feature-card,
+    .resource-card,
+    .update-card,
+    .contact-card,
+    .spotlight-card {
+      padding: 20px;
+    }
+
+    .panel h3,
+    .section-title {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .panel p,
+    .section-desc,
+    .muted {
+      color: var(--muted);
+    }
+
+    .stat-grid,
+    .quick-grid,
+    .feature-grid,
+    .resource-grid,
+    .updates-grid,
+    .contact-grid,
+    .spotlight-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .stat-grid {
+      grid-template-columns: repeat(2, 1fr);
+      margin-top: 12px;
+    }
+
+    .stat-box {
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .stat-box strong {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 6px;
+      color: #fbbf24;
+    }
+
+    section.page-section {
+      padding: 18px 0 28px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 52em;
+    }
+
+    .quick-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .feature-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .resource-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .updates-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .contact-grid,
+    .spotlight-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: #fbbf24;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.18);
+      margin-bottom: 12px;
+    }
+
+    .quick-card strong,
+    .feature-card h3,
+    .resource-card h3,
+    .update-card h3,
+    .contact-card h3,
+    .spotlight-card h3 {
+      display: block;
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .quick-card p,
+    .feature-card p,
+    .resource-card p,
+    .update-card p,
+    .contact-card p,
+    .spotlight-card p,
+    .resource-card ul,
+    .contact-card ul,
+    .spotlight-card ul {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .resource-card ul,
+    .contact-card ul,
+    .spotlight-card ul {
+      padding-left: 18px;
+      margin-top: 10px;
+    }
+
+    .resource-card li,
+    .contact-card li,
+    .spotlight-card li {
+      margin-bottom: 8px;
+    }
+
+    .resource-card li a,
+    .contact-card li a,
+    .spotlight-card li a {
+      color: var(--text);
+      border-bottom: 1px dashed rgba(245, 158, 11, 0.28);
+    }
+
+    .resource-card li a:hover,
+    .contact-card li a:hover,
+    .spotlight-card li a:hover {
+      color: #fbbf24;
+    }
+
+    .notice-bar {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.16);
+      color: #f0d7a0;
+      font-size: 14px;
+    }
+
+    .update-date {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: #fbbf24;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .footer {
+      padding: 14px 0 42px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-box {
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .quick-grid,
+      .updates-grid,
+      .feature-grid,
+      .resource-grid,
+      .contact-grid,
+      .spotlight-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        flex-direction: column;
+        align-items: start;
+        padding: 12px 0;
+      }
+
+      .hero-grid,
+      .quick-grid,
+      .feature-grid,
+      .resource-grid,
+      .updates-grid,
+      .contact-grid,
+      .spotlight-grid,
+      .stat-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-main,
+      .panel,
+      .quick-card,
+      .feature-card,
+      .resource-card,
+      .update-card,
+      .contact-card,
+      .spotlight-card {
+        border-radius: 18px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>第二轮测试开始啦！</h1>
-    <h2>尝试插入图片：</h2>
-    <img src="1.jpg" alt="温馨的礼物">
-    <h2>尝试插入超链接：</h2>
-    <a href="https://www.bilibili.com/video/BV1hT421a7EW" target="_blank">24年生日</a>
-  <h2>尝试插入项目列表：</h2>
-    <ol class="custom-list">
-    <li>我爱你，亲爱的！</li>
-    <li>我们会越来越好！</li>
-    <li>祝你一切顺利！</li>
-    </ol>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="#top" class="brand">
+        <strong>幸福工厂中文站</strong>
+        <span>非官方中文交流社群</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#bilibili">B站精选</a>
+        <a href="#about">社区定位</a>
+        <a href="#blueprints">蓝图资源</a>
+        <a href="#saves">存档分享</a>
+        <a href="#tools">工具导航</a>
+        <a href="#community">社区入口</a>
+        <a href="#submit">资源投稿</a>
+        <a href="#updates">最新动态</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-main">
+          <div class="hero-badge">Satisfactory 中文静态资源站</div>
+          <h1>幸福工厂中文站</h1>
+          <p>——非官方中文交流社群——本站专注于静态展示与资源整理。首页优先收录 Bilibili 攻略内容，并同步整理蓝图、存档、工具导航、社区入口与投稿方式，降低中文玩家找资料的成本。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#bilibili">先看 B站精选</a>
+            <a class="btn btn-secondary" href="#submit">资源投稿</a>
+          </div>
+          <div class="notice-bar">当前版本为静态展示站，不开放用户注册与站内发帖。玩家投稿统一通过邮箱提交，由站点维护者人工整理后发布。</div>
+        </div>
+
+        <aside class="hero-side">
+          <section class="panel">
+            <h3>站点目标</h3>
+            <p class="section-desc">把分散在视频、评论区、群聊和私人收藏里的内容，整理成一个长期可访问、可查阅、可维护的中文入口站。</p>
+            <div class="stat-grid">
+              <div class="stat-box">
+                <strong>B站</strong>
+                <span class="muted">首页优先展示</span>
+              </div>
+              <div class="stat-box">
+                <strong>静态</strong>
+                <span class="muted">无账号与数据库</span>
+              </div>
+              <div class="stat-box">
+                <strong>手动</strong>
+                <span class="muted">统一维护更新</span>
+              </div>
+              <div class="stat-box">
+                <strong>轻</strong>
+                <span class="muted">上线与维护负担</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <h3>当前维护方式</h3>
+            <p class="section-desc">B站内容按 UP 主分组整理。玩家可通过邮箱投稿蓝图、存档、攻略或工具链接，避免引入发帖系统带来的审核和运维负担。</p>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <section class="page-section" id="bilibili">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">B站攻略精选</h2>
+            <p class="section-desc">首页优先展示 Bilibili 内容。这里不再按“新手 / 物流 / 版本”分类，而是按 UP 主整理，方便用户直接进入固定创作者的视频体系。</p>
+          </div>
+        </div>
+
+        <div class="resource-grid">
+          <article class="resource-card">
+            <div class="tag">站长推荐</div>
+            <h3>苓芪94</h3>
+            <p>幸福工厂up主，更新以游戏教学、蓝图分享为主。</p>
+            <ul>
+              <li><a href="https://space.bilibili.com/17781670" target="_blank" rel="noopener noreferrer">苓芪94的主页</a></li>
+              <li><a href="https://www.bilibili.com/video/BV1oXwdz3Eve/?spm_id_from=333.1387.0.0" target="_blank" rel="noopener noreferrer">代表视频 01：1.2实验版更新简介</a></li>
+              <li><a href="https://www.bilibili.com/video/BV1VYicBjEJ9/?spm_id_from=333.1387.collection.video_card.click&vd_source=e4a250ed9f86d1e5d0792bae9e1d8858" target="_blank" rel="noopener noreferrer">代表视频 02：新专题教学系列</a></li>
+              <li><a href="https://www.bilibili.com/video/BV15HkwBNEpo/?spm_id_from=333.1387.collection.video_card.click" target="_blank" rel="noopener noreferrer">代表视频 03：粉丝存档测评系列</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">UP主</div>
+            <h3>UP主名称 A</h3>
+            <p>这里填写这个 UP 主的风格说明，例如偏新手教学、路线规划、工厂实操，或者讲解节奏清晰，适合入门。</p>
+            <ul>
+              <li><a href="UP主A主页链接" target="_blank" rel="noopener noreferrer">进入主页</a></li>
+              <li><a href="UP主A视频链接1" target="_blank" rel="noopener noreferrer">精选视频 01：这里填写标题</a></li>
+              <li><a href="UP主A视频链接2" target="_blank" rel="noopener noreferrer">精选视频 02：这里填写标题</a></li>
+              <li><a href="UP主A视频链接3" target="_blank" rel="noopener noreferrer">精选视频 03：这里填写标题</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">UP主</div>
+            <h3>UP主名称 B</h3>
+            <p>这里填写这个 UP 主的特点，例如偏物流、管道、铁路、后期扩建，或者偏细节和机制拆解。</p>
+            <ul>
+              <li><a href="UP主B主页链接" target="_blank" rel="noopener noreferrer">进入主页</a></li>
+              <li><a href="UP主B视频链接1" target="_blank" rel="noopener noreferrer">精选视频 01：这里填写标题</a></li>
+              <li><a href="UP主B视频链接2" target="_blank" rel="noopener noreferrer">精选视频 02：这里填写标题</a></li>
+              <li><a href="UP主B视频链接3" target="_blank" rel="noopener noreferrer">精选视频 03：这里填写标题</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">UP主</div>
+            <h3>UP主名称 C</h3>
+            <p>这里填写这个 UP 主的方向，例如偏大型基地展示、美观建筑、专题实况、版本观察或模组体验。</p>
+            <ul>
+              <li><a href="UP主C主页链接" target="_blank" rel="noopener noreferrer">进入主页</a></li>
+              <li><a href="UP主C视频链接1" target="_blank" rel="noopener noreferrer">精选视频 01：这里填写标题</a></li>
+              <li><a href="UP主C视频链接2" target="_blank" rel="noopener noreferrer">精选视频 02：这里填写标题</a></li>
+              <li><a href="UP主C视频链接3" target="_blank" rel="noopener noreferrer">精选视频 03：这里填写标题</a></li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="notice-bar">这一栏优先放“能长期代表该 UP 主内容体系”的主页链接和 2 到 4 个代表视频，不要堆太多杂链，否则首页会立刻变乱。</div>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="container">
+        <div class="quick-grid">
+          <article class="quick-card">
+            <strong>B站精选</strong>
+            <p>首页前排展示，按 UP 主整理，优先承接中文视频内容。</p>
+          </article>
+          <article class="quick-card">
+            <strong>蓝图资源</strong>
+            <p>分类整理生产模块、建筑模板和专题蓝图。</p>
+          </article>
+          <article class="quick-card">
+            <strong>存档分享</strong>
+            <p>展示精选存档简介、版本信息和跳转入口。</p>
+          </article>
+          <article class="quick-card">
+            <strong>工具导航</strong>
+            <p>地图、计算器、问答站和资料工具集中收录。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="about">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">社区定位</h2>
+            <p class="section-desc">这是一个服务于幸福工厂中文玩家的静态入口网站。核心不是做论坛，而是把最需要的资源和入口整理清楚，降低中文玩家找资料的成本。</p>
+          </div>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="tag">B站</div>
+            <h3>优先展示中文视频内容</h3>
+            <p>首页最先展示 B站攻略精选，帮助玩家快速进入稳定的中文内容源。</p>
+          </article>
+          <article class="feature-card">
+            <div class="tag">资源</div>
+            <h3>蓝图与存档整理</h3>
+            <p>集中展示蓝图和存档，而不是做成开放式社区发帖区。</p>
+          </article>
+          <article class="feature-card">
+            <div class="tag">导航</div>
+            <h3>工具与入口汇总</h3>
+            <p>把常用地图、计算器、社区入口和投稿方式整理成固定导航。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="blueprints">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">蓝图资源</h2>
+            <p class="section-desc">这里适合放蓝图分类、下载入口、产能说明、适用版本和截图预览。当前为静态占位结构，后续只需要替换真实内容即可。</p>
+          </div>
+        </div>
+        <div class="resource-grid">
+          <article class="resource-card">
+            <h3>前期基础蓝图</h3>
+            <p>适合新手开局阶段使用的基础模块。</p>
+            <ul>
+              <li>基础冶炼模块</li>
+              <li>早期装配模块</li>
+              <li>紧凑物流节点</li>
+            </ul>
+          </article>
+          <article class="resource-card">
+            <h3>中期扩建蓝图</h3>
+            <p>适合已经进入稳定扩产阶段的生产线布局。</p>
+            <ul>
+              <li>钢铁产线单元</li>
+              <li>模组化炼油阵列</li>
+              <li>铁路站前处理模块</li>
+            </ul>
+          </article>
+          <article class="resource-card">
+            <h3>后期工业蓝图</h3>
+            <p>适合大型基地、复杂物流和高层建筑布局。</p>
+            <ul>
+              <li>后期总装模块</li>
+              <li>垂直总线结构</li>
+              <li>高密度电力分配区</li>
+            </ul>
+          </article>
+          <article class="resource-card">
+            <h3>专题蓝图</h3>
+            <p>按场景和主题独立整理的特殊用途模块。</p>
+            <ul>
+              <li>美观建筑蓝图</li>
+              <li>核电相关模块</li>
+              <li>液体系统专题</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="saves">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">存档分享</h2>
+            <p class="section-desc">这里适合展示精选存档的简介信息，而不是直接做成社区发帖。这样维护负担更低，页面也更清晰。</p>
+          </div>
+        </div>
+        <div class="spotlight-grid">
+          <article class="spotlight-card">
+            <div class="tag">精选存档</div>
+            <h3>沙漠起家路线存档</h3>
+            <p>适合新手参考发展节奏。可以补充地图位置、版本号、总时长、模组情况和下载说明。</p>
+            <ul>
+              <li>推荐用途：开局参考</li>
+              <li>可补充字段：版本、截图、下载地址</li>
+            </ul>
+          </article>
+          <article class="spotlight-card">
+            <div class="tag">精选存档</div>
+            <h3>后期综合工业基地</h3>
+            <p>适合展示大型工厂总体布局。可以补充生产目标、运输方式、建筑风格和导览截图。</p>
+            <ul>
+              <li>推荐用途：大基地参考</li>
+              <li>可补充字段：版本、模组、区域导览</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="tools">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">工具导航</h2>
+            <p class="section-desc">B站视频已经单独前置，这里只保留长期有效的外部工具和资料入口，不再和视频攻略混排。</p>
+          </div>
+        </div>
+        <div class="resource-grid">
+          <article class="resource-card">
+            <h3>地图与交互工具</h3>
+            <p>适合收录交互地图、资源点查询、地形参考等长期有效工具。</p>
+            <ul>
+              <li>交互地图链接</li>
+              <li>资源点查询入口</li>
+              <li>地形与坐标参考</li>
+            </ul>
+          </article>
+          <article class="resource-card">
+            <h3>产线计算器</h3>
+            <p>适合收录配方规划、产能计算、物流估算和工厂设计辅助工具。</p>
+            <ul>
+              <li>配方计算器</li>
+              <li>产能规划工具</li>
+              <li>工厂设计辅助站</li>
+            </ul>
+          </article>
+          <article class="resource-card">
+            <h3>资料与问答</h3>
+            <p>适合收录官方问答站、Wiki、资料页和长期可查阅的参考信息。</p>
+            <ul>
+              <li>官方问答站</li>
+              <li>Wiki / 资料索引</li>
+              <li>补丁说明汇总</li>
+            </ul>
+          </article>
+          <article class="resource-card">
+            <h3>版本与官方内容</h3>
+            <p>适合收录官网、官方视频入口、更新公告和专题资料页。</p>
+            <ul>
+              <li>官网入口</li>
+              <li>官方视频频道</li>
+              <li>更新公告页</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="community">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">社区入口</h2>
+            <p class="section-desc">这里不是发帖区，而是稳定的社群与内容入口。把最关键的外部渠道集中在这里即可。</p>
+          </div>
+        </div>
+        <div class="contact-grid">
+          <article class="contact-card">
+            <div class="tag">内容平台</div>
+            <h3>Bilibili 账号</h3>
+            <p>这里放你的 Bilibili 主页链接、代表视频、系列合集和更新说明。</p>
+            <ul>
+              <li>账号主页链接</li>
+              <li>置顶系列视频</li>
+              <li>官方资讯搬运入口</li>
+            </ul>
+          </article>
+          <article class="contact-card">
+            <div class="tag">社群入口</div>
+            <h3>交流群</h3>
+            <p>这里放 QQ 群、Discord 或其他交流方式，并注明入群说明和基本规则。</p>
+            <ul>
+              <li>主要交流群入口</li>
+              <li>入群须知</li>
+              <li>社区管理说明</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="submit">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">资源投稿</h2>
+            <p class="section-desc">本站不开放用户自行发帖，但欢迎玩家通过邮箱投稿蓝图、存档、攻略整理、工具链接或其他优质资源。站点维护者会统一筛选、整理后发布到站内。</p>
+          </div>
+        </div>
+        <div class="contact-grid">
+          <article class="contact-card">
+            <div class="tag">投稿方式</div>
+            <h3>邮箱投稿</h3>
+            <p>点击下方按钮即可调用本地邮件客户端，直接向站点邮箱发送投稿邮件。建议邮件中写明资源名称、适用版本、作者署名、内容简介和相关链接。</p>
+            <ul>
+              <li>投稿类型：蓝图、存档、攻略、工具链接、活动信息</li>
+              <li>建议附带：截图、版本说明、下载地址、联系方式</li>
+              <li>站点将人工审核后再整理上线</li>
+            </ul>
+            <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;">
+              <a class="btn btn-primary" href="mailto:your-community@example.com?subject=%E5%B9%B8%E7%A6%8F%E5%B7%A5%E5%8E%82%E4%B8%AD%E6%96%87%E7%AB%99%E6%8A%95%E7%A8%BF">发送投稿邮件</a>
+              <a class="btn btn-secondary" href="mailto:your-community@example.com">检查投稿邮箱地址</a>
+            </div>
+          </article>
+          <article class="contact-card">
+            <div class="tag">投稿说明</div>
+            <h3>建议邮件格式</h3>
+            <p>标题建议统一，例如：蓝图投稿｜资源名称；存档投稿｜资源名称。正文建议包含作者名、资源简介、适用游戏版本、资源链接、截图说明，以及是否允许转载或二次整理。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="updates">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">最新动态</h2>
+            <p class="section-desc">因为不做用户发帖，这里的更新将由站点维护者手动整理发布，适合作为首页公告和精选内容区。</p>
+          </div>
+        </div>
+        <div class="updates-grid">
+          <article class="update-card">
+            <span class="update-date">2026-04-14</span>
+            <h3>B站内容已前置到首页主区域</h3>
+            <p>当前版本已把 Bilibili 攻略精选提到首页前排，并作为站点的第一优先内容入口。</p>
+          </article>
+          <article class="update-card">
+            <span class="update-date">2026-04-14</span>
+            <h3>B站区块改为按UP主分组</h3>
+            <p>不再按攻略类型做分栏，统一改成按 UP 主整理主页链接和代表视频，结构更稳定。</p>
+          </article>
+          <article class="update-card">
+            <span class="update-date">待补充</span>
+            <h3>下一步填充真实链接与正式文案</h3>
+            <p>后续重点仍然是替换真实 B站主页、真实视频链接、真实邮箱、真实社区入口和正式文字说明。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-box">
+      <div>© 2026 幸福工厂中文站 · 非官方中文交流社群 · 当前为静态展示网页</div>
+      <div>维护模式：静态页面 + 手动更新 + 邮箱投稿</div>
+    </div>
+  </footer>
 </body>
 </html>
