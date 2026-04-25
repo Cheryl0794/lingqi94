@@ -1,0 +1,1664 @@
+<!doctype html>
+<!-- Version: v0.0.7 -->
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>幸福工厂中文站</title>
+  <meta name="description" content="幸福工厂中文玩家静态资源站，优先整理 Bilibili UP 精选、工具导航、蓝图资源、存档分享、社区入口与投稿方式。" />
+  <style>
+    :root {
+      --bg: #202938;
+      --bg-2: #304456;
+      --panel: rgba(43, 55, 72, 0.86);
+      --panel-2: rgba(29, 39, 53, 0.93);
+      --line: rgba(230, 213, 180, 0.18);
+      --text: #f8f2e8;
+      --muted: #cbc3b4;
+      --accent: #d8b16e;
+      --accent-2: #88aeca;
+      --max: 1200px;
+      --shadow: 0 18px 48px rgba(18, 24, 36, 0.34), 0 14px 36px rgba(136, 174, 202, 0.10);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 10% 10%, rgba(216, 177, 110, 0.18), transparent 28%),
+        radial-gradient(ellipse at 85% 12%, rgba(136, 174, 202, 0.18), transparent 30%),
+        radial-gradient(ellipse at 18% 82%, rgba(160, 184, 164, 0.15), transparent 31%),
+        radial-gradient(ellipse at 82% 80%, rgba(204, 164, 132, 0.12), transparent 28%),
+        radial-gradient(circle at 48% 26%, rgba(245, 238, 222, 0.07), transparent 22%),
+        radial-gradient(circle at 54% 68%, rgba(255, 248, 235, 0.05), transparent 24%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 38%),
+        linear-gradient(180deg, #202938 0%, #304456 48%, #242f3f 100%);
+      line-height: 1.68;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(100% - 28px, var(--max));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(32, 41, 55, 0.84);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(230, 213, 180, 0.11);
+    }
+
+
+    .operations-topline {
+      font-size: 12px;
+      color: rgba(248, 242, 232, 0.76);
+      background: rgba(22, 30, 42, 0.52);
+      border-bottom: 1px solid rgba(230, 213, 180, 0.10);
+      line-height: 1.45;
+    }
+
+    .operations-topline .container {
+      padding: 6px 0;
+      overflow-wrap: anywhere;
+    }
+
+    .nav {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand strong {
+      font-size: 22px;
+      letter-spacing: 0.4px;
+    }
+
+    .brand span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--muted);
+      border: 1px solid transparent;
+      transition: 0.18s ease;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(216, 177, 110, 0.10);
+      border-color: rgba(136, 174, 202, 0.24);
+    }
+
+    .hero {
+      padding: 54px 0 22px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .hero-main,
+    .panel,
+    .feature-card,
+    .resource-card,
+    .update-card,
+    .contact-card,
+    .spotlight-card,
+    .quick-card {
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main {
+      position: relative;
+      overflow: hidden;
+      padding: 30px;
+    }
+
+    .hero-main::before {
+      content: "";
+      position: absolute;
+      left: -90px;
+      top: -90px;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(216, 177, 110, 0.18), transparent 66%);
+      pointer-events: none;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      right: -70px;
+      bottom: -70px;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(136, 174, 202, 0.17), transparent 66%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 11px;
+      border-radius: 999px;
+      font-size: 13px;
+      margin-bottom: 14px;
+      color: #f1dfb5;
+      background: rgba(216, 177, 110, 0.12);
+      border: 1px solid rgba(230, 213, 180, 0.24);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(34px, 5.6vw, 58px);
+      line-height: 1.08;
+    }
+
+    .hero-main p {
+      margin: 0 0 22px;
+      max-width: 38em;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      transition: 0.2s ease;
+      font-weight: 700;
+    }
+
+    .btn-primary {
+      background: linear-gradient(100deg, #f1dfb5 0%, var(--accent) 48%, var(--accent-2) 100%);
+      color: #233040;
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.02);
+      border-color: rgba(230, 213, 180, 0.14);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .hero-side {
+      display: grid;
+      gap: 18px;
+    }
+
+    .panel,
+    .quick-card,
+    .feature-card,
+    .resource-card,
+    .update-card,
+    .contact-card,
+    .spotlight-card {
+      padding: 20px;
+    }
+
+    .panel h3,
+    .section-title {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .panel p,
+    .section-desc,
+    .muted {
+      color: var(--muted);
+    }
+
+    .stat-grid,
+    .quick-grid,
+    .feature-grid,
+    .resource-grid,
+    .updates-grid,
+    .contact-grid,
+    .spotlight-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .stat-grid {
+      grid-template-columns: repeat(2, 1fr);
+      margin-top: 12px;
+    }
+
+    .stat-box {
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255, 250, 242, 0.035);
+      border: 1px solid rgba(230, 213, 180, 0.11);
+    }
+
+    .stat-box strong {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 6px;
+      color: #f1dfb5;
+    }
+
+    section.page-section {
+      padding: 18px 0 28px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 52em;
+    }
+
+    .quick-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .feature-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .resource-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .tools-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .tools-grid .resource-card,
+    .tools-grid li,
+    .tools-grid li a {
+      min-width: 0;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .updates-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .contact-grid,
+    .spotlight-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: #f1dfb5;
+      background: rgba(216, 177, 110, 0.12);
+      border: 1px solid rgba(230, 213, 180, 0.24);
+      margin-bottom: 12px;
+    }
+
+    .quick-card strong,
+    .feature-card h3,
+    .resource-card h3,
+    .update-card h3,
+    .contact-card h3,
+    .spotlight-card h3 {
+      display: block;
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .quick-card p,
+    .feature-card p,
+    .resource-card p,
+    .update-card p,
+    .contact-card p,
+    .spotlight-card p,
+    .resource-card ul,
+    .contact-card ul,
+    .spotlight-card ul {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .resource-card ul,
+    .contact-card ul,
+    .spotlight-card ul {
+      padding-left: 18px;
+      margin-top: 10px;
+    }
+
+    .resource-card li,
+    .contact-card li,
+    .spotlight-card li {
+      margin-bottom: 8px;
+    }
+
+    .resource-card li a,
+    .contact-card li a,
+    .spotlight-card li a {
+      color: var(--text);
+      border-bottom: 1px dashed rgba(216, 177, 110, 0.42);
+    }
+
+    .resource-card li a:hover,
+    .contact-card li a:hover,
+    .spotlight-card li a:hover {
+      color: #f1dfb5;
+    }
+
+    .resource-card h3 a {
+      color: inherit;
+      border-bottom: 1px dashed rgba(216, 177, 110, 0.42);
+      transition: 0.18s ease;
+    }
+
+    .resource-card h3 a:hover {
+      color: #f1dfb5;
+    }
+
+    .notice-bar {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(216, 177, 110, 0.09);
+      border: 1px solid rgba(216, 177, 110, 0.18);
+      color: #ead8b8;
+      font-size: 14px;
+    }
+
+
+
+    .recent-updates-list,
+    .recent-updates-more-list {
+      padding-left: 18px;
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .recent-updates-list li,
+    .recent-updates-more-list li {
+      margin-bottom: 8px;
+    }
+
+    .recent-updates-list li:last-child,
+    .recent-updates-more-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .recent-updates-more {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .recent-updates-more summary {
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: #f1dfb5;
+      background: rgba(216, 177, 110, 0.10);
+      border: 1px solid rgba(230, 213, 180, 0.18);
+      user-select: none;
+    }
+
+    .recent-updates-more[open] summary {
+      margin-bottom: 10px;
+    }
+
+    .update-date {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: #f1dfb5;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .footer {
+      padding: 14px 0 42px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-box {
+      padding-top: 18px;
+      border-top: 1px solid rgba(230, 213, 180, 0.14);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+
+    .section-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .version-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: #f1dfb5;
+      background: rgba(216, 177, 110, 0.12);
+      border: 1px solid rgba(230, 213, 180, 0.24);
+    }
+
+    .toggle-btn {
+      cursor: pointer;
+    }
+
+    .bilibili-grid {
+      align-items: start;
+    }
+
+    .bilibili-group {
+      margin-bottom: 18px;
+      border-radius: var(--radius);
+    }
+
+    .bilibili-group summary {
+      cursor: default;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255, 250, 242, 0.035);
+      border: 1px solid rgba(230, 213, 180, 0.14);
+    }
+
+    .bilibili-group summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .bilibili-group summary span {
+      font-size: 20px;
+      font-weight: 800;
+      color: #f1dfb5;
+    }
+
+    .bilibili-group summary small {
+      color: var(--muted);
+      font-size: 14px;
+      text-align: right;
+    }
+
+    .bilibili-group summary::after {
+      content: "分组";
+      color: var(--muted);
+      font-size: 13px;
+      border: 1px solid rgba(230, 213, 180, 0.14);
+      border-radius: 999px;
+      padding: 4px 9px;
+      white-space: nowrap;
+    }
+
+    .bilibili-group:not([open]) summary::after {
+      content: "分组";
+    }
+
+    .bilibili-group-grid {
+      align-items: start;
+      margin-bottom: 18px;
+    }
+
+    .up-meta {
+      margin-top: 8px !important;
+      font-size: 13px !important;
+      color: #d9d0c2 !important;
+    }
+
+    .operations-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .operations-card {
+      min-height: 100%;
+    }
+
+    .operations-card .role-list {
+      padding-left: 18px;
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .operations-card .role-list li {
+      margin-bottom: 8px;
+    }
+
+    .contact-line {
+      margin-top: 12px !important;
+      padding-top: 12px;
+      border-top: 1px solid rgba(230, 213, 180, 0.12);
+      color: #f1dfb5 !important;
+      font-weight: 700;
+    }
+
+    #bilibili.is-collapsed .bilibili-group-grid>.resource-card:nth-child(n+5) {
+      display: none;
+    }
+
+    @media (max-width: 1080px) {
+
+      .hero-grid,
+      .quick-grid,
+      .updates-grid,
+      .feature-grid,
+      .resource-grid,
+      .contact-grid,
+      .spotlight-grid,
+      .operations-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      #bilibili.is-collapsed .bilibili-group-grid>.resource-card:nth-child(n+3) {
+        display: none;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        flex-direction: column;
+        align-items: start;
+        padding: 12px 0;
+      }
+
+      .hero-grid,
+      .quick-grid,
+      .feature-grid,
+      .resource-grid,
+      .updates-grid,
+      .contact-grid,
+      .spotlight-grid,
+      .operations-grid,
+      .stat-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        flex-direction: column;
+        align-items: start;
+      }
+
+      .section-actions {
+        width: 100%;
+      }
+
+      #bilibili.is-collapsed .bilibili-group-grid>.resource-card:nth-child(n+2) {
+        display: none;
+      }
+
+      .hero-main,
+      .panel,
+      .quick-card,
+      .feature-card,
+      .resource-card,
+      .update-card,
+      .contact-card,
+      .spotlight-card {
+        border-radius: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="operations-topline">
+      <div class="container">运维人员：苓芪94（中文社区账号运营、网页总设计开发与维护｜QQ：3077593280）｜racien（技术支持）｜茗萝忆清秋、Molielk（数据收集、统计）</div>
+    </div>
+    <div class="container nav">
+      <a href="#top" class="brand">
+        <strong>幸福工厂中文站</strong>
+        <span>非官方中文交流社群</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#bilibili">B站UP精选</a>
+        <a href="#tools">工具导航</a>
+        <a href="#blueprints">蓝图资源</a>
+        <a href="#saves">存档分享</a>
+        <a href="#community">社区入口</a>
+        <a href="#submit">资源投稿</a>
+        <a href="#updates">网页更新日志</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-main">
+          <div class="hero-badge">Satisfactory 中文静态资源站</div>
+          <h1>幸福工厂中文站</h1>
+          <p>——非官方中文交流社群——本站专注于静态展示与资源整理。首页优先收录 Bilibili UP 内容，并把常用工具提升到第二顺位，同时整理蓝图、存档、社区入口与投稿方式，降低中文玩家找资料的成本。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#submit">资源投稿</a>
+            <a class="btn btn-secondary" href="#submit">资源投稿（临时占位）</a>
+          </div>
+          <div class="notice-bar">当前版本为静态展示站，不开放用户注册与站内发帖。玩家投稿统一通过邮箱提交，由站点维护者人工整理后发布。</div>
+        </div>
+
+        <aside class="hero-side">
+          <section class="panel">
+            <h3>最近更新</h3>
+            <p class="section-desc">这里替换原“站点目标”板块，改为首页侧边更新摘要，直接显示最近几次网页版本调整。</p>
+            <ul class="recent-updates-list">
+              <li><strong style="color:#f1dfb5;">v0.0.7</strong>：在页面最顶端新增运维人员小字信息条，写入苓芪94、racien、茗萝忆清秋与 Molielk 的分工及苓芪94 QQ 联系方式；同时删除原首页快速跳转卡片区，站内跳转统一交由顶部导航栏承担；新增可折叠最近更新板块，仅显示最近3次更新。</li>
+              <li><strong style="color:#f1dfb5;">v0.0.6</strong>：基底更新B站UP精选折叠逻辑：默认与折叠态均保留各分组第一行 UP，点击按钮展开全部；同时将页面色调调整为拉斐尔暖金与莫奈柔光蓝灰风格。</li>
+              <li><strong style="color:#f1dfb5;">v0.0.5</strong>：B站UP精选重构为“更新中”和“断更/少更”两个折叠组，集中收录 42 位 UP；主页入口从视频列表移除，改为点击 UP 名称进入主页，并同步更新版本标识与日志。</li>
+            </ul>
+            <details class="recent-updates-more">
+              <summary>展开其余更新</summary>
+              <ul class="recent-updates-more-list">
+                <li><strong style="color:#f1dfb5;">v0.0.4</strong>：删除社区定位板块，工具导航前置到首页第二位，B站攻略精选更名为 B站UP精选，站点目标替换为最近更新，最新动态改为网页更新日志，对锚点跳转进行优化。</li>
+                <li><strong style="color:#f1dfb5;">v0.0.3</strong>：工具页面内容得到集中补充，加入地图、产线计算、资料问答与官方内容链接等内容。</li>
+                <li><strong style="color:#f1dfb5;">v0.0.2</strong>：补充苓芪94与亚历山大个锤子的主页、简介与代表视频。</li>
+                <li><strong style="color:#f1dfb5;">v0.0.1</strong>：B站区块扩展为 4×4 UP 矩阵，并加入折叠显示。</li>
+              </ul>
+            </details>
+          </section>
+
+          <section class="panel">
+            <h3>当前维护方式</h3>
+            <p class="section-desc">B站内容按 UP 主分组整理。玩家可通过邮箱投稿蓝图、存档、攻略或工具链接，避免引入发帖系统带来的审核和运维负担。</p>
+          </section>
+        </aside>
+      </div>
+    </section>
+    <section class="page-section is-collapsed" id="bilibili">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">B站UP精选</h2>
+          </div>
+          <div class="section-actions">
+            <span class="version-chip">当前版本：v0.0.7</span>
+            <button class="btn btn-secondary toggle-btn" id="bilibili-toggle" type="button" aria-expanded="false">展开全部 UP</button>
+          </div>
+        </div>
+
+        <details class="bilibili-group" open>
+          <summary>
+            <span>更新中</span>
+            <small>13 位 UP · 仍在更新或近期有明显更新记录的 UP 主。</small>
+          </summary>
+          <div class="resource-grid bilibili-group-grid">
+          <article class="resource-card">
+            <div class="tag">更新中 01</div>
+            <h3><a href="https://space.bilibili.com/17781670" target="_blank" rel="noopener noreferrer">苓芪94</a></h3>
+            <p>综合性攻略；游戏实况攻略；产线蓝图教学详解；专题教学；</p>
+            <p class="up-meta">更新频率：不稳定周更｜最后更新：2026.4.19｜视频数：242｜粉丝：13,000</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1aF4FzqE1u" target="_blank" rel="noopener noreferrer">全材料超市蓝图分享</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1aUavzJEa1" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1FbcTz6Eks" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1fwSXBvE8F" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1TffSBAETE" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">更新中 02</div>
+            <h3><a href="https://space.bilibili.com/17479419" target="_blank" rel="noopener noreferrer">Richard阿辰</a></h3>
+            <p>综合性攻略；游戏实况分享；产线蓝图、造景攻略；官方最新资讯转播；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2026.4.7｜视频数：25｜粉丝：7,494</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1GgAZzkEZV" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1nDZWBUErm" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1TScqzBE7v" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1U1cqzgEXB" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1Pgcvz4Exh" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">更新中 03</div>
+            <h3><a href="https://space.bilibili.com/62841484" target="_blank" rel="noopener noreferrer">艾克斯睿先生</a></h3>
+            <p>综合性攻略；游戏实况攻略；产线蓝图、造景攻略；奇观类玩法分享；创新性玩法分享；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2026.4.11｜视频数：150｜粉丝：3,768</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1uskhYjEuh" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1hr7bzfEV3" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1FhpGeDEv9" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1Bs421N7Yh" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1cNzsBeE3X" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">更新中 04</div>
+            <h3><a href="https://space.bilibili.com/1906227" target="_blank" rel="noopener noreferrer">元素毛毛熊</a></h3>
+            <p>综合性攻略；游戏实况攻略；产线蓝图教学详解；专题教学；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2026.3.29｜视频数：43｜粉丝：3,662</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1Yq2LYdEoD" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1aD42137uN" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1ZveSz3EaX" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1T3k1YHEGM" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1UiXmBmEgG" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">更新中 05</div>
+            <h3><a href="https://space.bilibili.com/181848" target="_blank" rel="noopener noreferrer">TopazCrusader</a></h3>
+            <p>游戏实况分享；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2026.4.22｜视频数：278｜粉丝：1,921</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1D3411M7NE" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1N54vevE14" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1ur4y1S71E" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1Zh4y1k7YD" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV15Y4y1N7sj" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">更新中 06</div>
+            <h3><a href="https://space.bilibili.com/248417" target="_blank" rel="noopener noreferrer">迷途迷途喵</a></h3>
+            <p>综合性攻略；造景蓝图分享；奇观类玩法分享；卡车攻略；产线攻略；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2026.3.27｜视频数：37｜粉丝：616</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1ZJ1qY9EwB" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1nCtMe9EDP" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1J72pYXExQ" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1WewyzREkh" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1j4XKBCEM1" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">更新中 07</div>
+            <h3><a href="https://space.bilibili.com/7742753" target="_blank" rel="noopener noreferrer">放羊的凡凡</a></h3>
+            <p>奇观类玩法分享；外网视频搬运；官方最新资讯转播；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2026.3.18｜视频数：80｜粉丝：588</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1Vy4y1N7kD" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1rb4y1H7RN" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1UXwozcEmy" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1eKJmzpEKW" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1YgM1zQExJ" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">更新中 08</div>
+            <h3><a href="https://space.bilibili.com/21481039" target="_blank" rel="noopener noreferrer">先鲜厂长</a></h3>
+            <p>地图探索专题攻略，创新性玩法分享；</p>
+            <p class="up-meta">更新频率：周多更｜最后更新：2026.4.20｜视频数：20｜粉丝：580</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1zCXrBUEZm" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1j4APzwE4e" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV17BAGzdEjK" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1NLDXBDE6G" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV15xDWBnEge" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">更新中 09</div>
+            <h3><a href="https://space.bilibili.com/404186600" target="_blank" rel="noopener noreferrer">葛根漫步</a></h3>
+            <p>游戏实况分享；产线及铁路蓝图攻略，奇观类玩法分享；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2026.4.12｜视频数：72｜粉丝：424</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1mD8uzNE6y" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1WtNmzME4v" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1vHb7zAETc" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1vR2iB5EVU" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1UQ2jByE3Q" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">更新中 10</div>
+            <h3><a href="https://space.bilibili.com/3546782713776951" target="_blank" rel="noopener noreferrer">杯中沒酒</a></h3>
+            <p>外网攻略类视频搬运；MOD类攻略；</p>
+            <p class="up-meta">更新频率：不定期更新｜最后更新：2026.3.31｜视频数：23｜粉丝：192</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1yDWuzkEuB" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1DqJDzZEbJ" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1fUSCBGEgv" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1QiJDzbEvZ" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1sZCtB8EhG" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">更新中 11</div>
+            <h3><a href="https://space.bilibili.com/210862570" target="_blank" rel="noopener noreferrer">铭门手绘</a></h3>
+            <p>造景攻略、蓝图分享；</p>
+            <p class="up-meta">更新频率：不定期更新｜最后更新：2026.2.13｜视频数：12｜粉丝：182</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV13G411v7YU" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1WNcJzyEpK" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1Lm4y1k7XD" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1wM411t7aa" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1sP41137vd" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">更新中 12</div>
+            <h3><a href="https://space.bilibili.com/2083630536" target="_blank" rel="noopener noreferrer">小方铲</a></h3>
+            <p>卡车实验攻略；造景分享；</p>
+            <p class="up-meta">更新频率：不定期更新｜最后更新：2026.4.16｜视频数：7｜粉丝：160</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1LzdhBpEPB" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1FSCMBPE3g" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV12BbKzXEtB" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1oBkxB6EJm" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV18AZrByEMj" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">更新中 13</div>
+            <h3><a href="https://space.bilibili.com/23071882" target="_blank" rel="noopener noreferrer">亚路里垩-Halorio</a></h3>
+            <p>综合性攻略；游戏实况攻略；自动化游戏向；开发游戏向；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2026.3.21｜视频数：15｜粉丝：6,448</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1zvBFYYEFM" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1irwfzjEMn" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1ud2hYfE8u" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1TbzZY1ENX" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1K1BxYXEo9" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+          </div>
+        </details>
+
+        <details class="bilibili-group" open>
+          <summary>
+            <span>断更/少更</span>
+            <small>29 位 UP · 已断更、少更或更新间隔较长的 UP 主。</small>
+          </summary>
+          <div class="resource-grid bilibili-group-grid">
+          <article class="resource-card">
+            <div class="tag">断更/少更 01</div>
+            <h3><a href="https://space.bilibili.com/8007000" target="_blank" rel="noopener noreferrer">元叔游戏</a></h3>
+            <p>游戏实况分享；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2025.10.20｜视频数：45｜粉丝：42,000</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1kn42eFEzj" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1EB4y1A7o5" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1PJ411B7JE" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1JyhZz4EVN" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1G7411G7ya" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 02</div>
+            <h3><a href="https://space.bilibili.com/11621613" target="_blank" rel="noopener noreferrer">若愚asfool</a></h3>
+            <p>综合性攻略；游戏实况攻略；自动化游戏向；开发游戏向；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2021.8.23｜视频数：20｜粉丝：28,000</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1Go4y1D7UU" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1Sg4UeyELx" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1iQ4y1X7AK" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1nu1GYsEhm" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1ZxxSebESG" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 03</div>
+            <h3><a href="https://space.bilibili.com/2436836" target="_blank" rel="noopener noreferrer">亚历山大个锤子</a></h3>
+            <p>造景蓝图分享；奇观类玩法分享；多种类游戏向</p>
+            <p class="up-meta">更新频率：不定期更新｜最后更新：2025.10.21｜视频数：18｜粉丝：26,000</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1tw1jY1EHH" target="_blank" rel="noopener noreferrer">星球融合-铝工业区</a></li>
+                <li><a href="https://www.bilibili.com/video/BV138DoY7ENA" target="_blank" rel="noopener noreferrer">星球融合-基础工业区</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1ixoCYPEQb" target="_blank" rel="noopener noreferrer">星球融合-石油工业区</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1tRt9zpEFz" target="_blank" rel="noopener noreferrer">星球融合-钻石中心</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1gRW9zUEUD" target="_blank" rel="noopener noreferrer">星球融合-核子中心</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 04</div>
+            <h3><a href="https://space.bilibili.com/8918194" target="_blank" rel="noopener noreferrer">老追风呀</a></h3>
+            <p>游戏实况攻略；多种类游戏向；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2025.3.10｜视频数：6｜粉丝：6,593</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV115411Y7HX" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1Tt4y197wY" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1kF411z7jk" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1qQ4y1o7ED" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV13R4y1w7QH" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 05</div>
+            <h3><a href="https://space.bilibili.com/258502902" target="_blank" rel="noopener noreferrer">普P通T人R生S</a></h3>
+            <p>游戏实况分享；多种类游戏向；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2025.7.9｜视频数：35｜粉丝：4,894</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1kqZ8YGEYN" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1gMGpz8Ej5" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1N3KwzLEAM" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1FP7azQEZr" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1PPEkzxEJ9" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 06</div>
+            <h3><a href="https://space.bilibili.com/677129" target="_blank" rel="noopener noreferrer">GreatGBL</a></h3>
+            <p>游戏实况攻略；多种类游戏向；</p>
+            <p class="up-meta">更新频率：不定期更新｜最后更新：2026.3.18｜视频数：1｜粉丝：4,176</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV14gwezhEZV" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 07</div>
+            <h3><a href="https://space.bilibili.com/73609084" target="_blank" rel="noopener noreferrer">Vermitaf</a></h3>
+            <p>造景蓝图分享；奇观类玩法分享；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2024.9.28｜视频数：5｜粉丝：3,854</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1pdtqeMEJ3" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1gjxceGE9H" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV16S421R7eN" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1NM4y147E9" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1uh4y1Q71P" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 08</div>
+            <h3><a href="https://space.bilibili.com/1341513138" target="_blank" rel="noopener noreferrer">煜落万熠</a></h3>
+            <p>游戏实况攻略；产线蓝图攻略；铁路攻略；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2024.11.17｜视频数：25｜粉丝：2,585</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV17nxeemEKR" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1Lr2hYuEXH" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV16v4re5Ezg" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1LAUeYSEVF" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV12XyZYZE5o" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 09</div>
+            <h3><a href="https://space.bilibili.com/111664547" target="_blank" rel="noopener noreferrer">博尔加诺斯</a></h3>
+            <p>多种类游戏向；</p>
+            <p class="up-meta">更新频率：不定期更新｜最后更新：2025.7.27｜视频数：1｜粉丝：1,511</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1b383z6Ez6" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 10</div>
+            <h3><a href="https://space.bilibili.com/521794245" target="_blank" rel="noopener noreferrer">梦菲爱了</a></h3>
+            <p>游戏实况攻略；产线蓝图攻略；铁路攻略；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2025.12.21｜视频数：66｜粉丝：1,097</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1cVqDBTEuh" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1gD1YBtEEh" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV19cCYYYE9B" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1zK4y1v7W6" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1TmqcYnEmw" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 11</div>
+            <h3><a href="https://space.bilibili.com/328181913" target="_blank" rel="noopener noreferrer">浅风凌夏</a></h3>
+            <p>游戏实况分享；产线蓝图攻略；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2025.1.8｜视频数：19｜粉丝：1,039</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV14M411W7fj" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1bB4y1k7ao" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1NG411g7yd" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1A8tfeiEDh" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1VAsfeVE1h" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 12</div>
+            <h3><a href="https://space.bilibili.com/177898012" target="_blank" rel="noopener noreferrer">恋莉琴-诺依曼</a></h3>
+            <p>游戏实况分享；多种类游戏向；开发游戏向；日常分享；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2025.7.18｜视频数：11｜粉丝：1,022</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1Y9u9zEENH" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1ynbNzLEC6" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV17MgTz4ExP" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV13htoziEQY" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1itbYz5EMY" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 13</div>
+            <h3><a href="https://space.bilibili.com/13764590" target="_blank" rel="noopener noreferrer">Sidious5784</a></h3>
+            <p>火车攻略；火车蓝图分享；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2024.5.24｜视频数：3｜粉丝：836</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1DT421U7fW" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1zu4m1F78M" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 14</div>
+            <h3><a href="https://space.bilibili.com/291441822" target="_blank" rel="noopener noreferrer">玄冰龙月</a></h3>
+            <p>小技巧分享；多种类游戏向；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2024.11.10｜视频数：23｜粉丝：580</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1sHxgefEu2" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV17z4EeVEBW" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1YmsfeGEpj" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1vc4DebE68" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1Bb42e9EsC" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 15</div>
+            <h3><a href="https://space.bilibili.com/1188683860" target="_blank" rel="noopener noreferrer">巴利斯蒂克皮尔戈尔</a></h3>
+            <p>幸福工厂趣味动画；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2025.8.15｜视频数：4｜粉丝：566</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1V9H8z5Ejo" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1t4bCzREMn" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1hA8rz4E1t" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV16Vb7zBEYn" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 16</div>
+            <h3><a href="https://space.bilibili.com/130146319" target="_blank" rel="noopener noreferrer">CINLP</a></h3>
+            <p>游戏实况分享；产线、造景蓝图分享；多种类游戏向；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2025.12.27｜视频数：36｜粉丝：386</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1q5xue1EZM" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1yj5vzbESh" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV13D421n7Kc" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV11b4y1K7Py" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1iTbezmEf1" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 17</div>
+            <h3><a href="https://space.bilibili.com/142666582" target="_blank" rel="noopener noreferrer">山山水水鸟语花香</a></h3>
+            <p>造景分享；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2025.5.7｜视频数：20｜粉丝：376</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV185obYLEEr" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1BtKmzcEdA" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1y4RzYFEfH" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1zeMazZE7v" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1C95QzMEBf" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 18</div>
+            <h3><a href="https://space.bilibili.com/1982773" target="_blank" rel="noopener noreferrer">Pbsynth</a></h3>
+            <p>游戏实况分享；多种类游戏向；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2025.8.15｜视频数：10｜粉丝：342</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1gZuJzmERa" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV18R8ezBExd" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1oy8fzHEQS" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1dpb7zaEJE" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1ckbRz5EK9" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 19</div>
+            <h3><a href="https://space.bilibili.com/84176977" target="_blank" rel="noopener noreferrer">捌二陆</a></h3>
+            <p>造景分享；奇观类玩法分享；</p>
+            <p class="up-meta">更新频率：不定期更新｜最后更新：2025.9.18｜视频数：3｜粉丝：330</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1NXR9YzEx5" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1TZ52zcEjc" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1hMpaz2E3V" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 20</div>
+            <h3><a href="https://space.bilibili.com/271644726" target="_blank" rel="noopener noreferrer">KiloDung</a></h3>
+            <p>造景、产线蓝图分享；</p>
+            <p class="up-meta">更新频率：不定期更新｜最后更新：2025.3.5｜视频数：6｜粉丝：300</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1sEtRe4EE9" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1SYtyeTE62" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1gwsCeZEKX" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1yRzfYmEhe" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1BF9ZYqE2J" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 21</div>
+            <h3><a href="https://space.bilibili.com/518769422" target="_blank" rel="noopener noreferrer">一条咸鱼埃</a></h3>
+            <p>小技巧分享；游戏实况分享；多种类游戏向；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2026.2.28｜视频数：28｜粉丝：220</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1L7fzBnEpB" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1ur8jzsE5k" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1nyfxBsEPq" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1A38UzNEAo" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1Fg8WzfEY9" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 22</div>
+            <h3><a href="https://space.bilibili.com/3493075072583749" target="_blank" rel="noopener noreferrer">大-天使鱼</a></h3>
+            <p>造景分享；奇观类玩法分享；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2024.11.29｜视频数：15｜粉丝：174</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1vk4y1X7ck" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1rk4y1U7xe" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1ji421Z7Hd" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1HN4y1q74f" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1JHzVYCEQV" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 23</div>
+            <h3><a href="https://space.bilibili.com/3315532" target="_blank" rel="noopener noreferrer">丌へ丌</a></h3>
+            <p>铁路攻略；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2025.11.14｜视频数：4｜粉丝：159</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV187sjzGEcQ" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1RusDz1Ett" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1uEW9zVE7B" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1HqCPBdEcG" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 24</div>
+            <h3><a href="https://space.bilibili.com/471353500" target="_blank" rel="noopener noreferrer">程序员随风</a></h3>
+            <p>产线计算攻略；自动化游戏向；</p>
+            <p class="up-meta">更新频率：不定期更新｜最后更新：2025.4.19｜视频数：6｜粉丝：143</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1eC11YgEwF" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1CW4y1c712" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV19z4y1q7VR" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1j841167SU" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1ey5xzJEwC" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 25</div>
+            <h3><a href="https://space.bilibili.com/17024268" target="_blank" rel="noopener noreferrer">SSSSWILK</a></h3>
+            <p>均分器攻略，游戏实况分享；FPS及自动化游戏向；</p>
+            <p class="up-meta">更新频率：不定期更新｜最后更新：2025.8.14｜视频数：2｜粉丝：138</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1mTbYzZEmo" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1FnbhzGE3Q" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 26</div>
+            <h3><a href="https://space.bilibili.com/451906638" target="_blank" rel="noopener noreferrer">久醉い</a></h3>
+            <p>造景分享；奇观类玩法分享；</p>
+            <p class="up-meta">更新频率：不定期更新｜最后更新：2025.4.5｜视频数：4｜粉丝：74</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1fsRdYvE1G" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1vtXDY3EyS" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1nPwfeAEfW" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1StNpeDErw" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 27</div>
+            <h3><a href="https://space.bilibili.com/8297299" target="_blank" rel="noopener noreferrer">404在这里</a></h3>
+            <p>游戏实况分享；</p>
+            <p class="up-meta">更新频率：不定期更新｜最后更新：2026.4.10｜视频数：3｜粉丝：57</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1YWDMBiETZ" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV17tQFBREER" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1WgXPB2EHn" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 28</div>
+            <h3><a href="https://space.bilibili.com/293951270" target="_blank" rel="noopener noreferrer">President777</a></h3>
+            <p>新模式、机制理解分享及测试；</p>
+            <p class="up-meta">更新频率：不定期更新｜最后更新：2026.3.31｜视频数：2｜粉丝：57</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV1HWXkBHET4" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1ordFYgEkD" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+            </ul>
+          </article>
+
+          <article class="resource-card">
+            <div class="tag">断更/少更 29</div>
+            <h3><a href="https://space.bilibili.com/14418318" target="_blank" rel="noopener noreferrer">风丶幻</a></h3>
+            <p>游戏实况分享；</p>
+            <p class="up-meta">更新频率：周期性更新｜最后更新：2025.10.11｜视频数：21｜粉丝：27</p>
+            <ul>
+                <li><a href="https://www.bilibili.com/video/BV14TtBzgEaP" target="_blank" rel="noopener noreferrer">主力视频 01</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1YKtczLEbN" target="_blank" rel="noopener noreferrer">主力视频 02</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1FNhtzkEmB" target="_blank" rel="noopener noreferrer">主力视频 03</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1iutzzoEk5" target="_blank" rel="noopener noreferrer">主力视频 04</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1WA12Y4EQa" target="_blank" rel="noopener noreferrer">主力视频 05</a></li>
+            </ul>
+          </article>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <section class="page-section" id="tools">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">工具导航</h2>
+            <p class="section-desc">收录交互地图、资源点查询、计算器、资料表格等长期有效工具。</p>
+          </div>
+        </div>
+        <div class="resource-grid tools-grid">
+          <article class="resource-card">
+            <h3>地图与交互工具</h3>
+            <!--<p>收录交互地图、资源点查询、地形参考等长期有效工具。</p>-->
+            <ul>
+              <li><a href="https://satisfactory-calculator.com/zh/interactive-map" target="_blank"
+                  rel="noopener noreferrer">交互式地图 - 功能强大的在线游戏地图和存档可视化工具</a></li>
+              <li><a href="https://satisfactory-layout-planner.vercel.app/" target="_blank"
+                  rel="noopener noreferrer">厂区空间规划工具 - Satisfactory Layout Planner</a>
+              </li>
+              <li><a
+                  href="https://github.com/moritz-h/satisfactory-3d-map/releases/download/v0.11.0/Satisfactory3DMap-Windows.zip"
+                  target="_blank" rel="noopener noreferrer">离线存档查看工具（下载链接）</a>
+              </li>
+            </ul>
+          </article>
+          <article class="resource-card">
+            <h3>产线计算器</h3>
+            <!--<p>适合收录配方规划、产能计算、物流估算和工厂设计辅助工具。</p>-->
+            <ul>
+              <li><a href="https://factoriolab.github.io/sfy" target="_blank" rel="noopener noreferrer">产能计算器 - Factorio
+                  Lab</a></li>
+              <li><a href="https://xfgc.top/" target="_blank" rel="noopener noreferrer">产能计算器 - 幸福工厂小助手</a></li>
+              <li><a href="https://satisfactory-logistics.xyz" target="_blank" rel="noopener noreferrer">分布式工厂规划工具 -
+                  Satisfactory Logistics</a></li>
+              <li><a href="https://icemoonmagic.github.io/Satisfactory-Splitter-Calculator/" target="_blank"
+                  rel="noopener noreferrer">传送带计算器</a></li>
+            </ul>
+          </article>
+          <article class="resource-card">
+            <h3>资料与问答</h3>
+            <!--<p>适合收录官方问答站、Wiki、资料页和长期可查阅的参考信息。</p>-->
+            <ul>
+              <li><a href="https://questions.satisfactorygame.com/" target="_blank" rel="noopener noreferrer">官方Q&A</a>
+              </li>
+              <li><a href="https://satisfactory.wiki.gg/wiki/Satisfactory/zh" target="_blank"
+                  rel="noopener noreferrer">官方Wiki/资料索引</a></li>
+              <li><a href="https://ficsit.app/" target="_blank" rel="noopener noreferrer">幸福工厂Mod门户</a></li>
+              <li><a href="https://smm.ficsit.app/" target="_blank" rel="noopener noreferrer">SMM模组管理器</a> · <a
+                  href="https://github.com/satisfactorymodding/SatisfactoryModManager/releases" target="_blank"
+                  rel="noopener noreferrer">GitHub</a></li>
+              <li><a href="https://satisfactoryblueprints.com/" target="_blank" rel="noopener noreferrer">蓝图分享网站</a>
+              </li>
+              <li><a href="https://satisfactory-calculator.com/zh/blueprints" target="_blank"
+                  rel="noopener noreferrer">交互式地图蓝图库</a></li>
+              <li><a href="https://shimo.im/sheets/KrkElPByyMsWyqJp/MODOC/" target="_blank"
+                  rel="noopener noreferrer">苓芪94-1.2正式版表格精选（资源统计、回收点数、替代配方等）</a></li>
+              <li>1.1打野地图（需添加链接）</li>
+            </ul>
+          </article>
+          <article class="resource-card">
+            <h3>版本与官方内容</h3>
+            <!--<p>适合收录官网、官方视频入口、更新公告和专题资料页。</p>-->
+            <ul>
+              <li><a href="https://www.satisfactorygame.com/" target="_blank" rel="noopener noreferrer">官网</a> · <a
+                  href="https://store.steampowered.com/app/526870/Satisfactory/" target="_blank"
+                  rel="noopener noreferrer">Steam</a> · <a href="https://www.epicgames.com/store/en-US/p/satisfactory"
+                  target="_blank" rel="noopener noreferrer">Epic</a></li>
+              <li><a href="https://www.youtube.com/@CoffeeStainStudios" target="_blank"
+                  rel="noopener noreferrer">官方视频频道（海外）</a></li>
+              <li><a href="https://satisfactory.wiki.gg/wiki/Template:PatchesNav" target="_blank"
+                  rel="noopener noreferrer">补丁说明汇总</a></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="blueprints">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">蓝图资源</h2>
+            <p class="section-desc">这里适合放蓝图分类、下载入口、产能说明、适用版本和截图预览。当前为静态占位结构，后续只需要替换真实内容即可。</p>
+          </div>
+        </div>
+        <div class="resource-grid">
+          <article class="resource-card">
+            <h3>前期基础蓝图</h3>
+            <p>适合新手开局阶段使用的基础模块。</p>
+            <ul>
+              <li>基础冶炼模块</li>
+              <li>早期装配模块</li>
+              <li>紧凑物流节点</li>
+            </ul>
+          </article>
+          <article class="resource-card">
+            <h3>中期扩建蓝图</h3>
+            <p>适合已经进入稳定扩产阶段的生产线布局。</p>
+            <ul>
+              <li>钢铁产线单元</li>
+              <li>模组化炼油阵列</li>
+              <li>铁路站前处理模块</li>
+            </ul>
+          </article>
+          <article class="resource-card">
+            <h3>后期工业蓝图</h3>
+            <p>适合大型基地、复杂物流和高层建筑布局。</p>
+            <ul>
+              <li>后期总装模块</li>
+              <li>垂直总线结构</li>
+              <li>高密度电力分配区</li>
+            </ul>
+          </article>
+          <article class="resource-card">
+            <h3>专题蓝图</h3>
+            <p>按场景和主题独立整理的特殊用途模块。</p>
+            <ul>
+              <li>美观建筑蓝图</li>
+              <li>核电相关模块</li>
+              <li>液体系统专题</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="saves">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">存档分享</h2>
+            <p class="section-desc">这里适合展示精选存档的简介信息，而不是直接做成社区发帖。这样维护负担更低，页面也更清晰。</p>
+          </div>
+        </div>
+        <div class="spotlight-grid">
+          <article class="spotlight-card">
+            <div class="tag">精选存档</div>
+            <h3>沙漠起家路线存档</h3>
+            <p>适合新手参考发展节奏。可以补充地图位置、版本号、总时长、模组情况和下载说明。</p>
+            <ul>
+              <li>推荐用途：开局参考</li>
+              <li>可补充字段：版本、截图、下载地址</li>
+            </ul>
+          </article>
+          <article class="spotlight-card">
+            <div class="tag">精选存档</div>
+            <h3>后期综合工业基地</h3>
+            <p>适合展示大型工厂总体布局。可以补充生产目标、运输方式、建筑风格和导览截图。</p>
+            <ul>
+              <li>推荐用途：大基地参考</li>
+              <li>可补充字段：版本、模组、区域导览</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="page-section" id="community">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">社区入口</h2>
+            <p class="section-desc">这里不是发帖区，而是稳定的社群与内容入口。把最关键的外部渠道集中在这里即可。</p>
+          </div>
+        </div>
+        <div class="contact-grid">
+          <article class="contact-card">
+            <div class="tag">内容平台</div>
+            <h3>Bilibili 账号</h3>
+            <p>这里放你的 Bilibili 主页链接、代表视频、系列合集和更新说明。</p>
+            <ul>
+              <li>账号主页链接</li>
+              <li>置顶系列视频</li>
+              <li>官方资讯搬运入口</li>
+            </ul>
+          </article>
+          <article class="contact-card">
+            <div class="tag">社群入口</div>
+            <h3>交流群</h3>
+            <p>这里放 QQ 群、Discord 或其他交流方式，并注明入群说明和基本规则。</p>
+            <ul>
+              <li>主要交流群入口</li>
+              <li>入群须知</li>
+              <li>社区管理说明</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="submit">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">资源投稿</h2>
+            <p class="section-desc">本站不开放用户自行发帖，但欢迎玩家通过邮箱投稿蓝图、存档、攻略整理、工具链接或其他优质资源。站点维护者会统一筛选、整理后发布到站内。</p>
+          </div>
+        </div>
+        <div class="contact-grid">
+          <article class="contact-card">
+            <div class="tag">投稿方式</div>
+            <h3>邮箱投稿</h3>
+            <p>点击下方按钮即可调用本地邮件客户端，直接向站点邮箱发送投稿邮件。建议邮件中写明资源名称、适用版本、作者署名、内容简介和相关链接。</p>
+            <ul>
+              <li>投稿类型：蓝图、存档、攻略、工具链接、活动信息</li>
+              <li>建议附带：截图、版本说明、下载地址、联系方式</li>
+              <li>站点将人工审核后再整理上线</li>
+            </ul>
+            <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;">
+              <a class="btn btn-primary"
+                href="mailto:your-community@example.com?subject=%E5%B9%B8%E7%A6%8F%E5%B7%A5%E5%8E%82%E4%B8%AD%E6%96%87%E7%AB%99%E6%8A%95%E7%A8%BF">发送投稿邮件</a>
+              <a class="btn btn-secondary" href="mailto:your-community@example.com">检查投稿邮箱地址</a>
+            </div>
+          </article>
+          <article class="contact-card">
+            <div class="tag">投稿说明</div>
+            <h3>建议邮件格式</h3>
+            <p>标题建议统一，例如：蓝图投稿｜资源名称；存档投稿｜资源名称。正文建议包含作者名、资源简介、适用游戏版本、资源链接、截图说明，以及是否允许转载或二次整理。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="page-section" id="updates">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">网页更新日志</h2>
+            <p class="section-desc">按版本记录网页结构与内容调整，集中保留 v0.0.1 至当前 v0.0.7 的历次改动。</p>
+          </div>
+        </div>
+        <div class="updates-grid">
+          <article class="update-card">
+            <span class="update-date">2026-04-15 · v0.0.1</span>
+            <h3>B站区块完成矩阵化改造</h3>
+            <p>首页新增 4 排 4 列的 UP 主矩阵，并加入折叠按钮，默认只显示第一排，方便先保留结构后逐步填充真实内容。</p>
+          </article>
+          <article class="update-card">
+            <span class="update-date">2026-04-15 · v0.0.2</span>
+            <h3>首批真实UP内容写入页面</h3>
+            <p>补全了苓芪94的第 4、5 个代表视频，并加入亚历山大个锤子的主页、简介与 5 个代表视频，其余位置继续保留占位。</p>
+          </article>
+          <article class="update-card">
+            <span class="update-date">2026-04-22 · v0.0.3</span>
+            <h3>工具导航内容集中补强</h3>
+            <p>工具页面新增交互地图、空间规划、资源参考、产线计算器、官方 Q&amp;A、Wiki、模组入口与官网等常用链接，工具区可用性显著提高。</p>
+          </article>
+          <article class="update-card">
+            <span class="update-date">2026-04-22 · v0.0.4</span>
+            <h3>首页信息架构再次重排</h3>
+            <p>工具导航上移到 B站UP精选下方第二位；“站点目标”替换为侧边更新摘要；“最新动态”更名为“网页更新日志”，形成连续版本记录。</p>
+          </article>
+
+          <article class="update-card">
+            <span class="update-date">2026-04-25 · v0.0.5</span>
+            <h3>B站UP精选完成分组化改造</h3>
+            <p>对比 v0.0.4 的 16 位矩阵与占位结构，v0.0.5 将 B站UP精选改为“更新中”和“断更/少更”两个折叠组，集中写入 42 位 UP 的简介、更新频率、最后更新、视频数、粉丝数与代表视频；同时去除列表中的主页链接项，改为点击 UP 名称进入主页。</p>
+          </article>
+
+          <article class="update-card">
+            <span class="update-date">2026-04-25 · v0.0.6</span>
+            <h3>折叠逻辑与视觉色调更新</h3>
+            <p>从 v0.0.5 文件继续更新：B站UP精选默认显示各分组第一行 UP，点击“展开全部 UP”后显示全部内容，再次点击则折叠回第一行而不是完全隐藏；页面配色调整为拉斐尔式暖金与莫奈式柔和蓝灰光雾风格。</p>
+          </article>
+
+          <article class="update-card">
+            <span class="update-date">2026-04-25 · v0.0.7</span>
+            <h3>运维顶栏与页面精简</h3>
+            <p>将运维人员信息改为页面最顶端小字信息条，保留苓芪94、racien、茗萝忆清秋与 Molielk 的分工及苓芪94 QQ 联系方式；删除独立运维人员大板块，并移除快速跳转卡片区，改由顶部导航栏承担站内跳转。新增可折叠最近更新板块，仅显示最近3次更新。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-box">
+      <div>© 2026 幸福工厂中文站 · 非官方中文交流社群 · 当前为静态展示网页</div>
+      <div>维护模式：静态页面 + 手动更新 + 邮箱投稿 · 页面版本：v0.0.7</div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const bilibiliSection = document.getElementById('bilibili');
+      const toggleButton = document.getElementById('bilibili-toggle');
+      const groups = document.querySelectorAll('.bilibili-group');
+      const summaries = document.querySelectorAll('.bilibili-group summary');
+
+      if (!bilibiliSection || !toggleButton) return;
+
+      groups.forEach(function (group) {
+        group.setAttribute('open', '');
+      });
+
+      summaries.forEach(function (summary) {
+        summary.addEventListener('click', function (event) {
+          event.preventDefault();
+        });
+      });
+
+      const syncToggle = function () {
+        const isCollapsed = bilibiliSection.classList.contains('is-collapsed');
+        groups.forEach(function (group) {
+          group.setAttribute('open', '');
+        });
+        toggleButton.setAttribute('aria-expanded', String(!isCollapsed));
+        toggleButton.textContent = isCollapsed ? '展开全部 UP' : '折叠为第一行 UP';
+      };
+
+      syncToggle();
+
+      toggleButton.addEventListener('click', function () {
+        bilibiliSection.classList.toggle('is-collapsed');
+        syncToggle();
+      });
+    })();
+  </script>
+
+</body>
+
+</html>
